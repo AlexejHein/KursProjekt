@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Umfrageseite</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    {% if umfragen %}
+        <ul>
+            {% for umfrage in umfragen %}
+                <li>
+                    {{ umfrage.name }}
+                    {% if umfrage.choice_set.count > 0  %}
+                        <ul>
+                            {% for choice in umfrage.choice_set.all %}
+                                <li>{{ choice.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Keine Auswahlmöglichkeiten vorhanden</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
