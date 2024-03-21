@@ -4,9 +4,13 @@
 {% if umfrage %}
     <h1> {{ umfrage.name }} </h1>
     <h2>Antwortmöglichkeiten</h2>
+    {% if umfrage.choice_set.all %}
     {% for antwort in umfrage.choice_set.all %}
         <p>{{ antwort.name }}</p>
     {% endfor %}
+    {% else %}
+        <h3>Es gibt keine Antwortmöglichkeiten</h3>
+    {% endif %}
 {% else %}
     <h1>Es konnte keine umfrage ausgegeben werden</h1>
 {% endif %}
