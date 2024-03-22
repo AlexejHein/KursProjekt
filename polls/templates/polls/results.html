@@ -7,6 +7,7 @@
     <p class="lead">
         Vielen Dank für die Teilnahme an der Umfrage. Bitte wählen Sie eine Antwortmöglichkeit aus.
     </p>
+    <a href="{% url 'index' %}">Zurück zur startseite</a>
     {% if umfrage.choice_set.all %}
     {% csrf_token %}
         <ul>
@@ -20,5 +21,6 @@
 {% else %}
     <h1>Es konnte keine umfrage ausgegeben werden</h1>
 {% endif %}
+
 
 {% endblock %}

@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 from .models import Poll, Choice
@@ -27,7 +27,7 @@ def vote(request, slug):
     else:
         ausgewahlte_antwort.votes += 1
         ausgewahlte_antwort.save()
-        return HttpResponse("Danke fürs Abstimmen!")
+        return HttpResponseRedirect('/abstimmung/' + slug + '/results/')
 
 
 def results(request, slug):
