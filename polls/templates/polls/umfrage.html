@@ -5,9 +5,14 @@
     <h1> {{ umfrage.name }} </h1>
     <h2>Antwortmöglichkeiten</h2>
     {% if umfrage.choice_set.all %}
-    {% for antwort in umfrage.choice_set.all %}
-        <p>{{ antwort.name }}</p>
+    <form action="{% url 'vote' umfrage.slug %}" method="post">
+    {% csrf_token %}
+    {% for choice in umfrage.choice_set.all %}
+        <input type="radio" name="choice" value="{{ choice.id }}" id="choice{{ forloop.counter }}"/>
+       <label for="choice{{ forloop.counter }}">{{ choice.name }}</label>
     {% endfor %}
+    <input type="submit" value="Antwort absenden" />
+    </form>
     {% else %}
         <h3>Es gibt keine Antwortmöglichkeiten</h3>
     {% endif %}

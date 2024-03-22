@@ -1,0 +1,24 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+
+{% if umfrage %}
+    <h1> {{ umfrage.name }} </h1>
+    <h2>Ergebnis</h2>
+    <p class="lead">
+        Vielen Dank für die Teilnahme an der Umfrage. Bitte wählen Sie eine Antwortmöglichkeit aus.
+    </p>
+    {% if umfrage.choice_set.all %}
+    {% csrf_token %}
+        <ul>
+            {% for choice in umfrage.choice_set.all %}
+                <li>{{ choice.name }}: {{ choice.votes }} haben dafür abgestimmt</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>Es gibt keine Antwortmöglichkeiten</h3>
+    {% endif %}
+{% else %}
+    <h1>Es konnte keine umfrage ausgegeben werden</h1>
+{% endif %}
+
+{% endblock %}
