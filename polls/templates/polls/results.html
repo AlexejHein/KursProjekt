@@ -7,7 +7,7 @@
     <p class="lead">
         Vielen Dank für die Teilnahme an der Umfrage. Bitte wählen Sie eine Antwortmöglichkeit aus.
     </p>
-    <a href="{% url 'index' %}">Zurück zur startseite</a>
+    <a href="{% url 'polls:index' %}">Zurück zur startseite</a>
     {% if object.choice_set.all %}
     {% csrf_token %}
         <ul>

@@ -10,7 +10,7 @@
         <ul>
             {% for umfrage in umfragen %}
                 <li>
-                   <a href="{% url 'umfrage_deteil' umfrage.slug %}"> {{ umfrage.name }}</a>
+                   <a href="{% url 'polls:umfrage_deteil' umfrage.slug %}"> {{ umfrage.name }}</a>
                 </li>
             {% endfor %}
         </ul>

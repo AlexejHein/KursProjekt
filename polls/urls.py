@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import index, PollDeteilView, ResultsDeteilView, vote
 
+app_name = 'polls'
+
 urlpatterns = [
     path('', index, name='index'),
     path('abstimmung/<str:slug>/', PollDeteilView.as_view(), name='umfrage_deteil'),

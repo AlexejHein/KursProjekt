@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from .models import Poll, Choice
 from django.views import generic
@@ -23,7 +24,6 @@ class ResultsDeteilView(generic.DetailView):
     template_name = 'polls/results.html'
 
 
-
 def vote(request, slug):
     umfrage = get_object_or_404(Poll, slug=slug)
     try:
@@ -33,4 +33,4 @@ def vote(request, slug):
     else:
         ausgewahlte_antwort.votes += 1
         ausgewahlte_antwort.save()
-        return HttpResponseRedirect('/abstimmung/' + slug + '/results/')
+        return HttpResponseRedirect(reverse('polls:results', args=(umfrage.slug,)))
