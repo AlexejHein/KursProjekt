@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 from .models import Poll, Choice
+from django.views import generic
 
 
 def index(request):
@@ -12,10 +13,15 @@ def index(request):
     return render(request, 'polls/index.html', context)
 
 
-def umfrage_deteil(request, slug):
-    umfrage = get_object_or_404(Poll, slug=slug)
-    context = {'umfrage': umfrage}
-    return render(request, 'polls/umfrage.html', context)
+class PollDeteilView(generic.DetailView):
+    model = Poll
+    template_name = 'polls/umfrage.html'
+
+
+class ResultsDeteilView(generic.DetailView):
+    model = Poll
+    template_name = 'polls/results.html'
+
 
 
 def vote(request, slug):
@@ -28,9 +34,3 @@ def vote(request, slug):
         ausgewahlte_antwort.votes += 1
         ausgewahlte_antwort.save()
         return HttpResponseRedirect('/abstimmung/' + slug + '/results/')
-
-
-def results(request, slug):
-    umfrage = get_object_or_404(Poll, slug=slug)
-    context = {'umfrage': umfrage}
-    return render(request, 'polls/results.html', context)
