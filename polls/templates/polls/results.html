@@ -4,12 +4,13 @@
 {% if object %}
     <h1> {{ object.name }} </h1>
     <h2>Ergebnis</h2>
+    <a href="{% url 'polls:index' %}">Zurück zur startseite</a>
+    {% if access %}
     <p class="lead">
         Vielen Dank für die Teilnahme an der Umfrage. Bitte wählen Sie eine Antwortmöglichkeit aus.
     </p>
-    <a href="{% url 'polls:index' %}">Zurück zur startseite</a>
+
     {% if object.choice_set.all %}
-    {% csrf_token %}
         <ul>
             {% for choice in object.choice_set.all %}
                 <li>{{ choice.name }}: {{ choice.votes }} haben dafür abgestimmt</li>
@@ -18,9 +19,11 @@
     {% else %}
         <h3>Es gibt keine Antwortmöglichkeiten</h3>
     {% endif %}
+    {% else %}
+        <h3>Fehler: Umfragen können erst gesehen werden wenn du abstimmst</h3>
+    {% endif %}
 {% else %}
     <h1>Es konnte keine umfrage ausgegeben werden</h1>
 {% endif %}
-
 
 {% endblock %}
