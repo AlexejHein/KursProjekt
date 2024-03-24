@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.shortcuts import redirect
 
 from .models import Poll, Choice
 from django.views import generic
@@ -17,6 +18,13 @@ def index(request):
 class PollDeteilView(generic.DetailView):
     model = Poll
     template_name = 'polls/umfrage.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if 'voted_polls' in request.session:
+            if str(self.object.id) in request.session['voted_polls']:
+                return redirect('polls:results', slug=self.object.slug)
+        return super().get(request, *args, **kwargs)
 
 
 class ResultsDeteilView(generic.DetailView):
